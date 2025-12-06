@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "405629109092",
+    "project_id": "taskmanagerpro-c370e",
+    "storage_bucket": "taskmanagerpro-c370e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405629109092:android:70dde72493f43ed804f071",
+        "android_client_info": {
+          "package_name": "com.sonalisulgadle.taskmanagerpro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": ""
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

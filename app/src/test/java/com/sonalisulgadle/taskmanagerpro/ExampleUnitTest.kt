@@ -1,4 +1,4 @@
-package com.example.taskmanagerpro
+package com.sonalisulgadle.taskmanagerpro
 
 import org.junit.Test
 
