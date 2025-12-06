@@ -9,6 +9,7 @@ A Trello-like task manager app for Android (Kotlin + Jetpack Compose + Firebase)
 - Firebase Auth & Firestore
 - Hilt for Dependency Injection
 - Coroutines + Flow
+- MVVM + Clean Architecture
 
 ## Planned Features
 - Email & Google Sign-In
