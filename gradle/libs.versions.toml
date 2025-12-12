@@ -14,11 +14,13 @@ viewmodelLifecycleCompose = "2.6.2"
 
 firebaseBom = "32.7.0"
 googlePlay = "20.7.0"
+identity = "1.1.0"
 
 timber = "5.0.1"
 
 googleServices = "4.4.4"
 hilt = "2.56"
+androidxHiltNavigationCompose = "1.2.0"
 room = "2.7.2"
 kotlinxCoroutines = "1.7.3"
 ksp = "2.2.20-2.0.4"
@@ -51,7 +53,9 @@ firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-fires
 firebase-firestorage-ktx = { group = "com.google.firebase", name = "firebase-storage-ktx" } #TODO Optional
 
 google-play-service = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "googlePlay" }
+google-identity = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "identity" }
 
+androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 

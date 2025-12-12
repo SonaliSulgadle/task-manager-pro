@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">TaskManagerPro</string>
+    <string name="default_web_client_id">405629109092-nbbkm4th5v9sud72f6somevsgeoe52cq.apps.googleusercontent.com</string>
+
+    <string name="sign_in">Sign in</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="sign_up_with_email">[Don’t have an account? We’ll create one automatically.]</string>
+    <string name="email_placeholder">Email</string>
+    <string name="password_placeholer">Password</string>
+    <string name="login_title">Login</string>
+    <string name="home_title">Home</string>
 </resources>
