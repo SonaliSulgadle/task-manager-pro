@@ -46,6 +46,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 //    composeOptions {
 //        kotlinCompilerExtensionVersion = "1.5.4"
@@ -74,6 +75,7 @@ dependencies {
 
     implementation(libs.google.play.service)
 
+    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
