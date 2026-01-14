@@ -4,9 +4,11 @@
 
     <string name="sign_in">Sign in</string>
     <string name="sign_in_with_google">Sign in with Google</string>
-    <string name="sign_up_with_email">[Don’t have an account? We’ll create one automatically.]</string>
+    <string name="sign_up_with_email">[Don’t have an account? Sign Up here]</string>
+    <string name="sign_up">Sign Up</string>
     <string name="email_placeholder">Email</string>
-    <string name="password_placeholer">Password</string>
+    <string name="password_placeholder">Password</string>
+    <string name="confirm_password_placeholder">Confirm Password</string>
     <string name="login_title">Login</string>
     <string name="home_title">Home</string>
 </resources>

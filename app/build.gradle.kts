@@ -23,9 +23,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true //TODO - check why needed
 
-        val googleApiKey =
-            if (project.hasProperty("GOOGLE_API_KEY")) project.property("GOOGLE_API_KEY") else ""
-        buildConfigField("String", "GOOGLE_APIK_KEY", "\"${googleApiKey}\"")
     }
 
     buildTypes {
