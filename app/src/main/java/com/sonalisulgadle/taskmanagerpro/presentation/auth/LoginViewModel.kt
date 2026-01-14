@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.sonalisulgadle.taskmanagerpro.domain.usecase.login.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -38,7 +39,11 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    internal fun onSignUpWithEmail(email: String, password: String) {
+    internal fun onSignUpWithEmail(email: String, password: String, confirmPassword: String) {
+        if (password != confirmPassword) {
+            _state.value = LoginState.Error("Password does not match")
+            return
+        }
         viewModelScope.launch {
             _state.value = LoginState.Loading
             val result = loginUseCase.signUpEmail(email, password)
@@ -60,5 +65,9 @@ class LoginViewModel @Inject constructor(
                 LoginState.Error(result.exceptionOrNull()?.message)
             }
         }
+    }
+
+    internal fun resetState() {
+        _state.update { LoginState.Idle }
     }
 }

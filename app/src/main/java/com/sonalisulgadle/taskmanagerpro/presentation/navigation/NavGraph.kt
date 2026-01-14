@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.sonalisulgadle.taskmanagerpro.presentation.auth.LoginScreen
 import com.sonalisulgadle.taskmanagerpro.presentation.auth.LoginState
 import com.sonalisulgadle.taskmanagerpro.presentation.auth.LoginViewModel
+import com.sonalisulgadle.taskmanagerpro.presentation.auth.SignUpScreen
 import com.sonalisulgadle.taskmanagerpro.presentation.home.HomeScreen
 
 @Composable
@@ -22,7 +23,7 @@ fun NavGraph(
 
     val authState by authViewModel.state.collectAsState()
 
-    Scaffold {
+    Scaffold { contentPadding ->
         NavHost(
             navController = navController,
             startDestination = when (authState) {
@@ -32,9 +33,22 @@ fun NavGraph(
             }
         ) {
             composable(route = Screens.Login.route) {
-                LoginScreen(onLoginSuccess = {
+                LoginScreen(
+                    onLoginSuccess = {
+                        navController.navigate(Screens.Home.route) {
+                            popUpTo(Screens.Login.route) { inclusive = true }
+                        }
+                    },
+                    onSignUpClick = {
+                        navController.navigate(Screens.SignUp.route) {
+                            popUpTo(Screens.Login.route) { inclusive = true }
+                        }
+                    })
+            }
+            composable(route = Screens.SignUp.route) {
+                SignUpScreen(onSignUpSuccess = {
                     navController.navigate(Screens.Home.route) {
-                        popUpTo(Screens.Login.route) { inclusive = true }
+                        popUpTo(Screens.SignUp.route) { inclusive = true }
                     }
                 })
             }

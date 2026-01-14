@@ -18,6 +18,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -51,8 +52,8 @@ import com.sonalisulgadle.taskmanagerpro.ui.theme.TaskManagerProTheme
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
     onLoginSuccess: () -> Unit,
+    onSignUpClick: () -> Unit,
 ) {
-
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -100,7 +101,7 @@ fun LoginScreen(
                 value = password,
                 placeholder = {
                     Text(
-                        stringResource(R.string.password_placeholer),
+                        stringResource(R.string.password_placeholder),
                         modifier = Modifier.padding(4.dp)
                     )
                 },
@@ -108,7 +109,7 @@ fun LoginScreen(
                 onValueChange = { password = it },
                 visualTransformation = PasswordVisualTransformation()
             )
-            Spacer(modifier = Modifier.height(34.dp))
+            Spacer(modifier = Modifier.height(24.dp))
             TMButton(
                 title = stringResource(R.string.sign_in),
                 modifier = Modifier.fillMaxWidth(),
@@ -116,26 +117,34 @@ fun LoginScreen(
                     viewModel.onLoginWithEmail(email, password)
                 }
             )
-            Spacer(modifier = Modifier.height(12.dp))
-            Text(
-                text = stringResource(R.string.sign_up_with_email),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp),
-                color = MaterialTheme.colorScheme.primary,
-                style = TextStyle(
-                    fontSize = 10.sp,
-                    fontFamily = FontFamily.Monospace,
-                    textAlign = TextAlign.Center
-                ),
-            )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             GoogleSignInButton(
                 webClientId = stringResource(R.string.default_web_client_id),
             ) { token ->
                 viewModel.onSignInWithGoogleClick(token)
             }
+            Spacer(modifier = Modifier.height(20.dp))
+
+            TextButton(
+                content = {
+                    Text(
+                        text = stringResource(R.string.sign_up_with_email),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp),
+                        color = MaterialTheme.colorScheme.primary,
+                        style = TextStyle(
+                            fontSize = 12.sp,
+                            fontFamily = FontFamily.Monospace,
+                            textAlign = TextAlign.Center
+                        )
+                    )
+                },
+                onClick = {
+                    onSignUpClick()
+                }
+            )
 
             if (state is LoginState.Loading) {
                 CircularProgressIndicator(Modifier.align(Alignment.CenterHorizontally))
@@ -201,6 +210,6 @@ fun GoogleSignInButton(
 @PreviewLightDark
 fun PreviewLoginScreen() {
     TaskManagerProTheme {
-        LoginScreen(onLoginSuccess = {})
+        LoginScreen(onLoginSuccess = {}, onSignUpClick = {})
     }
 }
