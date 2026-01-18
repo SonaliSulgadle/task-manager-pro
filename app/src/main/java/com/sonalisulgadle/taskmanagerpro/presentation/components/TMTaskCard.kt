@@ -1,10 +1,14 @@
 package com.sonalisulgadle.taskmanagerpro.presentation.components
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,37 +18,68 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sonalisulgadle.taskmanagerpro.domain.model.task.Task
 import com.sonalisulgadle.taskmanagerpro.ui.theme.TaskManagerProTheme
 
 @Composable
 fun TMTaskCard(
-    title: String,
-    modifier: Modifier = Modifier
+    task: Task,
+    modifier: Modifier = Modifier,
+    onToggle: () -> Unit,
+    onDelete: () -> Unit
 ) {
-    Card(
+    Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(150.dp),
-        shape = CardDefaults.elevatedShape,
+            .padding(16.dp)
     ) {
-        Text(
-            modifier = Modifier.padding(16.dp),
-            text = title,
-            color = MaterialTheme.colorScheme.primary,
-            maxLines = 1,
-            style = TextStyle(
-                fontSize = 18.sp,
-                fontFamily = FontFamily.Monospace,
-            )
+        Checkbox(
+            checked = task.completed,
+            onCheckedChange = { onToggle() }
         )
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                modifier = Modifier.padding(16.dp),
+                text = task.title,
+                color = MaterialTheme.colorScheme.primary,
+                maxLines = 1,
+                style = TextStyle(
+                    fontSize = 18.sp,
+                    fontFamily = FontFamily.Monospace,
+                )
+            )
+            task.description?.let {
+                Text(
+                    modifier = Modifier.padding(16.dp),
+                    text = it,
+                    color = MaterialTheme.colorScheme.secondary,
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily.Monospace,
+                    )
+                )
+            }
+            IconButton(onClick = onDelete) {
+                Icon(imageVector = Icons.Default.Delete, contentDescription = null)
+            }
+        }
+
     }
 }
 
+internal val task = Task(
+    id = "1",
+    title = "Title",
+    description = "This is a sample description",
+    completed = false,
+    createdAt = 12121221,
+    updatedAt = 21212121
+)
 
 @Composable
 @PreviewLightDark
 fun PreviewTMTaskCard() {
     TaskManagerProTheme {
-        TMTaskCard("Title")
+        TMTaskCard(task = task, onToggle = {}, onDelete = {})
     }
 }
