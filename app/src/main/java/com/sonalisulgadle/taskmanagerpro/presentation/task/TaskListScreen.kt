@@ -1,50 +1,118 @@
 package com.sonalisulgadle.taskmanagerpro.presentation.task
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.sonalisulgadle.taskmanagerpro.R
 import com.sonalisulgadle.taskmanagerpro.presentation.components.TMTaskCard
 import com.sonalisulgadle.taskmanagerpro.ui.theme.TaskManagerProTheme
 
 @Composable
 fun TaskListScreen(
+    modifier: Modifier = Modifier,
     viewModel: TaskViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
+    var showDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = {}) {
+            FloatingActionButton(onClick = { showDialog = true }) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
             }
         }
     ) { padding ->
+
+        if (showDialog) {
+            AddTaskDialog(
+                onDismiss = { showDialog = false },
+                onAdd = { title, description ->
+                    viewModel.addTask(title, description)
+                }
+            )
+        }
         when {
             state.isLoading -> CircularProgressIndicator()
             state.error != null -> Text(state.error ?: "")
             else -> {
-                LazyColumn {
+                LazyColumn(modifier = modifier.padding(24.dp)) {
                     items(state.tasks) { task ->
                         TMTaskCard(
                             task = task,
                             onToggle = { viewModel.toggleCompleted(task) },
-                            onDelete = { viewModel.deleteTask(task.id) })
+                            onDelete = { viewModel.deleteTask(task.id) }
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
                     }
                 }
             }
         }
     }
+}
+
+@Composable
+fun AddTaskDialog(
+    onDismiss: () -> Unit,
+    onAdd: (String, String?) -> Unit
+) {
+    var title by remember { mutableStateOf("") }
+    var description by remember { mutableStateOf("") }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    if (title.isNotBlank()) {
+                        onAdd(title, description.ifBlank { null })
+                        onDismiss()
+                    }
+                }
+            ) { Text(stringResource(R.string.action_add)) }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) }
+        },
+        title = { Text(stringResource(R.string.text_new_task)) },
+        text = {
+            Column {
+                OutlinedTextField(
+                    value = title,
+                    onValueChange = { title = it },
+                    label = { Text(stringResource(R.string.text_title)) }
+                )
+                OutlinedTextField(
+                    value = description,
+                    onValueChange = { description = it },
+                    label = { Text(stringResource(R.string.text_description)) }
+                )
+            }
+        }
+    )
 }
 
 @Composable

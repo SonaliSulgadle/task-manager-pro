@@ -11,4 +11,9 @@
     <string name="confirm_password_placeholder">Confirm Password</string>
     <string name="login_title">Login</string>
     <string name="home_title">Home</string>
+    <string name="text_new_task">New Task</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_add">Add</string>
+    <string name="text_title">Title</string>
+    <string name="text_description">Description</string>
 </resources>
