@@ -1,7 +1,6 @@
 package com.sonalisulgadle.taskmanagerpro.presentation.auth
 
 import android.app.Activity
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -47,6 +46,7 @@ import com.sonalisulgadle.taskmanagerpro.presentation.components.TMButton
 import com.sonalisulgadle.taskmanagerpro.presentation.components.TMOutlinedButton
 import com.sonalisulgadle.taskmanagerpro.presentation.components.TMOutlinedTextField
 import com.sonalisulgadle.taskmanagerpro.ui.theme.TaskManagerProTheme
+import timber.log.Timber
 
 @Composable
 fun LoginScreen(
@@ -86,7 +86,7 @@ fun LoginScreen(
                 fontSize = 32.sp,
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.onSurface
             )
             Spacer(modifier = Modifier.height(40.dp))
             TMOutlinedTextField(
@@ -133,7 +133,7 @@ fun LoginScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 12.dp),
-                        color = MaterialTheme.colorScheme.primary,
+                        color = MaterialTheme.colorScheme.onSurface,
                         style = TextStyle(
                             fontSize = 12.sp,
                             fontFamily = FontFamily.Monospace,
@@ -175,7 +175,8 @@ fun GoogleSignInButton(
                 val token = credential.googleIdToken
                 if (token != null) onTokenReceived(token)
             } catch (e: Exception) {
-                Log.e("Google Auth", "GoogleSignInButton: Error Retrieving token ${e.message}")
+                Timber.tag("Google Auth")
+                    .e("GoogleSignInButton: Error Retrieving token ${e.message}")
             }
         }
 
@@ -196,10 +197,8 @@ fun GoogleSignInButton(
                     )
                 }
                 .addOnFailureListener { exception ->
-                    Log.e(
-                        "Google Auth",
-                        "GoogleSignInButton: Cannot begin Sign-in ${exception.message}",
-                    )
+                    Timber.tag("Google Auth")
+                        .e("GoogleSignInButton: Cannot begin Sign-in ${exception.message}")
                     exception.printStackTrace()
                 }
         }

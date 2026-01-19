@@ -1,12 +1,11 @@
 package com.sonalisulgadle.taskmanagerpro.presentation.components
 
-import androidx.compose.foundation.background
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -22,12 +21,15 @@ fun TMTopBar(
         title = {
             Text(
                 text = title,
-                fontSize = 16.sp,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Monospace,
+                color = MaterialTheme.colorScheme.onSurface
             )
         },
-        modifier = Modifier.background(MaterialTheme.colorScheme.inversePrimary)
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        )
     )
 }
 

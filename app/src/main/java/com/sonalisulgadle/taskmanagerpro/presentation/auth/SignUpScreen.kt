@@ -78,7 +78,7 @@ fun SignUpScreen(
                 fontSize = 32.sp,
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.onSurface
             )
             Spacer(modifier = Modifier.height(40.dp))
             TMOutlinedTextField(
@@ -94,7 +94,8 @@ fun SignUpScreen(
                 placeholder = {
                     Text(
                         stringResource(R.string.password_placeholder),
-                        modifier = Modifier.padding(4.dp)
+                        modifier = Modifier.padding(4.dp),
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 },
                 singleLine = true,
@@ -108,7 +109,8 @@ fun SignUpScreen(
                 placeholder = {
                     Text(
                         stringResource(R.string.confirm_password_placeholder),
-                        modifier = Modifier.padding(4.dp)
+                        modifier = Modifier.padding(4.dp),
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 },
                 singleLine = true,
@@ -131,7 +133,10 @@ fun SignUpScreen(
                         strokeWidth = 2.dp
                     )
                 } else {
-                    Text(stringResource(R.string.sign_up))
+                    Text(
+                        text = stringResource(R.string.sign_up),
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
                 }
             }
 
