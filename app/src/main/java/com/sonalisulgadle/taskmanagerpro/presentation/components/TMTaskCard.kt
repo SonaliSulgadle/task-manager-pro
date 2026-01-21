@@ -1,5 +1,6 @@
 package com.sonalisulgadle.taskmanagerpro.presentation.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,10 +31,15 @@ fun TMTaskCard(
     task: Task,
     modifier: Modifier = Modifier,
     onToggle: () -> Unit,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
+    onCardClick: (String) -> Unit
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                onCardClick(task.id)
+            },
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Row(
@@ -92,6 +98,10 @@ internal val task = Task(
 @PreviewLightDark
 fun PreviewTMTaskCard() {
     TaskManagerProTheme {
-        TMTaskCard(task = task, onToggle = {}, onDelete = {})
+        TMTaskCard(
+            task = task,
+            onToggle = {},
+            onDelete = {},
+            onCardClick = {})
     }
 }

@@ -14,13 +14,18 @@ import com.sonalisulgadle.taskmanagerpro.ui.theme.TaskManagerProTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    onTaskCardClick: (String) -> Unit,
+) {
     Scaffold(
         topBar = {
             TMTopBar(title = stringResource(R.string.home_title))
         },
         content = { paddingValues ->
-            TaskListScreen(modifier = Modifier.padding(paddingValues))
+            TaskListScreen(
+                modifier = Modifier.padding(paddingValues),
+                onTaskCardClick = onTaskCardClick
+            )
         }
     )
 }
@@ -29,6 +34,6 @@ fun HomeScreen() {
 @PreviewLightDark
 fun PreviewHomeScreen() {
     TaskManagerProTheme {
-        HomeScreen()
+        HomeScreen(onTaskCardClick = {})
     }
 }

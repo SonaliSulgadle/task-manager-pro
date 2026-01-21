@@ -16,4 +16,7 @@
     <string name="action_add">Add</string>
     <string name="text_title">Title</string>
     <string name="text_description">Description</string>
+    <string name="header_edit_task">Edit Task</string>
+    <string name="label_completed">Completed</string>
+    <string name="action_save">Save</string>
 </resources>

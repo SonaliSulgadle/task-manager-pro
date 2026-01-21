@@ -5,6 +5,6 @@ data class Task(
     val title: String,
     val description: String?,
     val completed: Boolean,
-    val createdAt: Long,
-    val updatedAt: Long
+    val createdAt: Long = 0L,
+    val updatedAt: Long = 0L
 )

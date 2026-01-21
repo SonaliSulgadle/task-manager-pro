@@ -7,6 +7,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.sonalisulgadle.taskmanagerpro.data.entity.task.TaskDto
 import com.sonalisulgadle.taskmanagerpro.data.mapper.task.mapToTask
+import com.sonalisulgadle.taskmanagerpro.data.mapper.task.mapToTaskDto
 import com.sonalisulgadle.taskmanagerpro.domain.model.task.Task
 import com.sonalisulgadle.taskmanagerpro.domain.repository.TaskRepository
 import kotlinx.coroutines.channels.awaitClose
@@ -50,19 +51,17 @@ class TaskRepositoryImpl(
     }
 
     override suspend fun updateTask(task: Task) {
-        tasksRef().document(task.id)
-            .update(
-                mapOf(
-                    "title" to task.title,
-                    "description" to task.description,
-                    "completed" to task.completed,
-                    "updatedAt" to Timestamp.now()
-                )
-            ).await()
+        tasksRef().document(task.id).set(task.mapToTaskDto()).await()
     }
 
     override suspend fun deleteTask(taskId: String) {
         tasksRef().document(taskId).delete().await()
+    }
+
+    override suspend fun getTaskById(taskId: String): Task? {
+        val document = tasksRef().document(taskId).get().await()
+
+        return document.toObject(TaskDto::class.java)?.mapToTask(document.id)
     }
 
     private fun tasksRef(): CollectionReference {

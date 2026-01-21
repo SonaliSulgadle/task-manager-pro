@@ -34,6 +34,7 @@ import com.sonalisulgadle.taskmanagerpro.ui.theme.TaskManagerProTheme
 @Composable
 fun TaskListScreen(
     modifier: Modifier = Modifier,
+    onTaskCardClick: (String) -> Unit,
     viewModel: TaskViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
@@ -64,7 +65,10 @@ fun TaskListScreen(
                         TMTaskCard(
                             task = task,
                             onToggle = { viewModel.toggleCompleted(task) },
-                            onDelete = { viewModel.deleteTask(task.id) }
+                            onDelete = { viewModel.deleteTask(task.id) },
+                            onCardClick = {taskId ->
+                                onTaskCardClick(taskId)
+                            }
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                     }
@@ -119,6 +123,6 @@ fun AddTaskDialog(
 @PreviewLightDark
 fun PreviewTaskListScreen() {
     TaskManagerProTheme {
-        TaskListScreen()
+        TaskListScreen(onTaskCardClick = {})
     }
 }
