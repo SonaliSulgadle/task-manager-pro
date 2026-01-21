@@ -39,9 +39,6 @@ fun EditTaskScreen(
 ) {
     val state = viewModel.uiState
 
-    var title by remember { mutableStateOf("") }
-    var description by remember { mutableStateOf("") }
-
     if (state.isLoading) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -68,13 +65,13 @@ fun EditTaskScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             OutlinedTextField(
-                value = title,
+                value = state.title,
                 onValueChange = viewModel::onTitleChange,
                 label = { Text(stringResource(R.string.text_title)) },
                 modifier = Modifier.fillMaxWidth()
             )
             OutlinedTextField(
-                value = description,
+                value = state.description,
                 onValueChange = viewModel::onDescriptionChange,
                 label = { Text(text = stringResource(R.string.text_description)) },
                 modifier = Modifier.fillMaxWidth()
