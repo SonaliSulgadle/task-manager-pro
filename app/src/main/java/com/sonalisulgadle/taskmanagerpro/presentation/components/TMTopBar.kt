@@ -1,6 +1,10 @@
 package com.sonalisulgadle.taskmanagerpro.presentation.components
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -33,10 +37,48 @@ fun TMTopBar(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TMTopBarWithBack(
+    title: String,
+    onNavigateBack: () -> Unit
+) {
+    TopAppBar(
+        title = {
+            Text(
+                text = title,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Monospace,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        ),
+        navigationIcon = {
+            IconButton(onClick = onNavigateBack) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                    contentDescription = null
+                )
+            }
+        }
+    )
+}
+
 @Composable
 @PreviewLightDark
 fun PreviewTMTopBar() {
     TaskManagerProTheme {
         TMTopBar(title = "Title")
+    }
+}
+
+@Composable
+@PreviewLightDark
+fun PreviewTMTopBarWithBack() {
+    TaskManagerProTheme {
+        TMTopBarWithBack(title = "Title", onNavigateBack = {})
     }
 }

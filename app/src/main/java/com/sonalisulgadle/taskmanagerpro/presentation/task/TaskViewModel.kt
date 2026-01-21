@@ -6,6 +6,7 @@ import com.sonalisulgadle.taskmanagerpro.domain.model.task.Task
 import com.sonalisulgadle.taskmanagerpro.domain.usecase.task.AddTaskUseCase
 import com.sonalisulgadle.taskmanagerpro.domain.usecase.task.DeleteTaskUseCase
 import com.sonalisulgadle.taskmanagerpro.domain.usecase.task.ObserveTasksUseCase
+import com.sonalisulgadle.taskmanagerpro.domain.usecase.task.UpdateTaskParams
 import com.sonalisulgadle.taskmanagerpro.domain.usecase.task.UpdateTaskUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,7 +46,14 @@ class TaskViewModel @Inject constructor(
 
     internal fun toggleCompleted(task: Task) {
         viewModelScope.launch {
-            updateTaskUseCase(task.copy(completed = !task.completed))
+            updateTaskUseCase(
+                UpdateTaskParams(
+                    taskId = task.id,
+                    title = task.title,
+                    description = task.description,
+                    isCompleted = !task.completed
+                )
+            )
         }
     }
 

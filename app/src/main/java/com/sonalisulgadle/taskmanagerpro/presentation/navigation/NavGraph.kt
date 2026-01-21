@@ -6,14 +6,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.sonalisulgadle.taskmanagerpro.presentation.auth.LoginScreen
 import com.sonalisulgadle.taskmanagerpro.presentation.auth.LoginState
 import com.sonalisulgadle.taskmanagerpro.presentation.auth.LoginViewModel
 import com.sonalisulgadle.taskmanagerpro.presentation.auth.SignUpScreen
 import com.sonalisulgadle.taskmanagerpro.presentation.home.HomeScreen
+import com.sonalisulgadle.taskmanagerpro.presentation.task.editTask.EditTaskScreen
 
 @Composable
 fun NavGraph(
@@ -53,7 +56,24 @@ fun NavGraph(
                 })
             }
             composable(route = Screens.Home.route) {
-                HomeScreen()
+                HomeScreen(
+                    onTaskCardClick = { taskId ->
+                        navController.navigate(Screens.EditTask.createRoute(taskId))
+                    }
+                )
+            }
+            composable(
+                route = Screens.EditTask.route,
+                arguments = listOf(
+                    navArgument("taskId") {
+                        type = NavType.StringType
+                    }
+                )) { backStackEntry ->
+                val taskId = backStackEntry.arguments?.getString("taskId") ?: ""
+                EditTaskScreen(taskId = taskId, onBackPressed = {
+                    navController.popBackStack()
+                })
+
             }
         }
 

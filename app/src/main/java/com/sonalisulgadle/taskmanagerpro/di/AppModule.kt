@@ -9,6 +9,7 @@ import com.sonalisulgadle.taskmanagerpro.domain.repository.TaskRepository
 import com.sonalisulgadle.taskmanagerpro.domain.usecase.login.LoginUseCase
 import com.sonalisulgadle.taskmanagerpro.domain.usecase.task.AddTaskUseCase
 import com.sonalisulgadle.taskmanagerpro.domain.usecase.task.DeleteTaskUseCase
+import com.sonalisulgadle.taskmanagerpro.domain.usecase.task.GetTaskByIdUseCase
 import com.sonalisulgadle.taskmanagerpro.domain.usecase.task.ObserveTasksUseCase
 import com.sonalisulgadle.taskmanagerpro.domain.usecase.task.UpdateTaskUseCase
 import dagger.Module
@@ -56,4 +57,8 @@ object AppModule {
     @Provides
     fun provideDeleteTaskUseCase(taskRepository: TaskRepository) =
         DeleteTaskUseCase(taskRepository)
+
+    @Provides
+    fun provideGetTaskByIdUseCase(taskRepository: TaskRepository) =
+        GetTaskByIdUseCase(taskRepository)
 }
