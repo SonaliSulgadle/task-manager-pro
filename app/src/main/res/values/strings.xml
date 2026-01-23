@@ -5,18 +5,26 @@
     <string name="sign_in">Sign in</string>
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="sign_up_with_email">[Don’t have an account? Sign Up here]</string>
+
     <string name="sign_up">Sign Up</string>
     <string name="email_placeholder">Email</string>
     <string name="password_placeholder">Password</string>
     <string name="confirm_password_placeholder">Confirm Password</string>
+
     <string name="login_title">Login</string>
     <string name="home_title">Home</string>
+
     <string name="text_new_task">New Task</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_add">Add</string>
     <string name="text_title">Title</string>
     <string name="text_description">Description</string>
+
     <string name="header_edit_task">Edit Task</string>
     <string name="label_completed">Completed</string>
     <string name="action_save">Save</string>
+
+    <string name="label_no_tasks">No tasks yet</string>
+    <string name="action_add_task">Add Task</string>
+    <string name="action_retry">Retry</string>
 </resources>

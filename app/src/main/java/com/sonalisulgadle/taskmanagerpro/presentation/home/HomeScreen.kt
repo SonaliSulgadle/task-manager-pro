@@ -9,7 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.sonalisulgadle.taskmanagerpro.R
 import com.sonalisulgadle.taskmanagerpro.presentation.components.TMTopBar
-import com.sonalisulgadle.taskmanagerpro.presentation.task.TaskListScreen
+import com.sonalisulgadle.taskmanagerpro.presentation.task.taskList.TaskListScreen
 import com.sonalisulgadle.taskmanagerpro.ui.theme.TaskManagerProTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
