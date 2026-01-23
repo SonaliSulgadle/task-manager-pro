@@ -1,4 +1,4 @@
-package com.sonalisulgadle.taskmanagerpro.presentation.task
+package com.sonalisulgadle.taskmanagerpro.presentation.task.taskList
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -37,7 +36,7 @@ fun TaskListScreen(
     onTaskCardClick: (String) -> Unit,
     viewModel: TaskViewModel = hiltViewModel()
 ) {
-    val state by viewModel.state.collectAsState()
+    val uiState by viewModel.state.collectAsState()
     var showDialog by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -56,17 +55,19 @@ fun TaskListScreen(
                 }
             )
         }
-        when {
-            state.isLoading -> CircularProgressIndicator()
-            state.error != null -> Text(state.error ?: "")
-            else -> {
+
+        when (val state = uiState) {
+            TaskUiState.Loading -> LoadingState()
+            TaskUiState.Empty -> EmptyState({ showDialog = true })
+            is TaskUiState.Success -> {
+                val tasks = state.tasks
                 LazyColumn(modifier = modifier.padding(24.dp)) {
-                    items(state.tasks) { task ->
+                    items(tasks) { task ->
                         TMTaskCard(
                             task = task,
                             onToggle = { viewModel.toggleCompleted(task) },
                             onDelete = { viewModel.deleteTask(task.id) },
-                            onCardClick = {taskId ->
+                            onCardClick = { taskId ->
                                 onTaskCardClick(taskId)
                             }
                         )
@@ -74,6 +75,11 @@ fun TaskListScreen(
                     }
                 }
             }
+
+            is TaskUiState.Error -> ErrorState(
+                state.message,
+                onRetry = { viewModel.retry() }
+            )
         }
     }
 }

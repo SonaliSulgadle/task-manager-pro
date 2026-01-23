@@ -1,4 +1,4 @@
-package com.sonalisulgadle.taskmanagerpro.presentation.task
+package com.sonalisulgadle.taskmanagerpro.presentation.task.taskList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,21 +19,26 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TaskViewModel @Inject constructor(
-    observeTasksUseCase: ObserveTasksUseCase,
+    private val observeTasksUseCase: ObserveTasksUseCase,
     private val addTaskUseCase: AddTaskUseCase,
     private val updateTaskUseCase: UpdateTaskUseCase,
     private val deleteTaskUseCase: DeleteTaskUseCase
 ) : ViewModel() {
-    private val _state = MutableStateFlow(TaskUiState())
+    private val _state = MutableStateFlow<TaskUiState>(TaskUiState.Loading)
     var state: StateFlow<TaskUiState> = _state
 
     init {
+        observeTasks()
+    }
+
+    internal fun observeTasks() {
         observeTasksUseCase()
-            .onEach {
-                _state.value = TaskUiState(tasks = it, isLoading = false)
+            .onEach { tasks ->
+                _state.value =
+                    if (tasks.isEmpty()) TaskUiState.Empty else TaskUiState.Success(tasks)
             }
             .catch {
-                _state.value = TaskUiState(error = it.message)
+                _state.value = TaskUiState.Error(it.message ?: "Something went wrong")
             }
             .launchIn(viewModelScope)
     }
@@ -61,5 +66,10 @@ class TaskViewModel @Inject constructor(
         viewModelScope.launch {
             deleteTaskUseCase(taskId)
         }
+    }
+
+    internal fun retry() {
+        _state.value = TaskUiState.Loading
+        observeTasks()
     }
 }
