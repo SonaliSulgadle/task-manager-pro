@@ -13,15 +13,21 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -36,15 +42,36 @@ fun TaskListScreen(
     onTaskCardClick: (String) -> Unit,
     viewModel: TaskViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val uiState by viewModel.state.collectAsState()
     var showDialog by remember { mutableStateOf(false) }
+
+    val snackBarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(Unit) {
+        viewModel.event.collect { event ->
+            when (event) {
+                is TaskEvent.ShowUndoDelete -> {
+                    val result = snackBarHostState.showSnackbar(
+                        message = context.getString(R.string.label_task_deleted),
+                        actionLabel = context.getString(R.string.action_undo_delete),
+                        duration = SnackbarDuration.Short
+                    )
+                    if (result == SnackbarResult.ActionPerformed) {
+                        viewModel.undoDelete(event.task)
+                    }
+                }
+            }
+        }
+    }
 
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(onClick = { showDialog = true }) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
             }
-        }
+        },
+        snackbarHost = { SnackbarHost(snackBarHostState) }
     ) { padding ->
 
         if (showDialog) {
@@ -57,8 +84,8 @@ fun TaskListScreen(
         }
 
         when (val state = uiState) {
-            TaskUiState.Loading -> LoadingState()
-            TaskUiState.Empty -> EmptyState({ showDialog = true })
+            TaskUiState.Loading -> LoadingStateView()
+            TaskUiState.Empty -> EmptyStateView({ showDialog = true })
             is TaskUiState.Success -> {
                 val tasks = state.tasks
                 LazyColumn(modifier = modifier.padding(24.dp)) {
@@ -66,7 +93,7 @@ fun TaskListScreen(
                         TMTaskCard(
                             task = task,
                             onToggle = { viewModel.toggleCompleted(task) },
-                            onDelete = { viewModel.deleteTask(task.id) },
+                            onDelete = { viewModel.deleteTask(task) },
                             onCardClick = { taskId ->
                                 onTaskCardClick(taskId)
                             }
@@ -76,7 +103,7 @@ fun TaskListScreen(
                 }
             }
 
-            is TaskUiState.Error -> ErrorState(
+            is TaskUiState.Error -> ErrorStateView(
                 state.message,
                 onRetry = { viewModel.retry() }
             )

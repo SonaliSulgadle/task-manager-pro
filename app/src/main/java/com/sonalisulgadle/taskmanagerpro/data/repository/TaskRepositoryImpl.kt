@@ -7,13 +7,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.sonalisulgadle.taskmanagerpro.data.entity.task.TaskDto
 import com.sonalisulgadle.taskmanagerpro.data.mapper.task.mapToTask
-import com.sonalisulgadle.taskmanagerpro.data.mapper.task.mapToTaskDto
 import com.sonalisulgadle.taskmanagerpro.domain.model.task.Task
 import com.sonalisulgadle.taskmanagerpro.domain.repository.TaskRepository
+import com.sonalisulgadle.taskmanagerpro.domain.usecase.task.UpdateTaskParams
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+import java.sql.Date
 
 class TaskRepositoryImpl(
     private val auth: FirebaseAuth,
@@ -50,8 +51,15 @@ class TaskRepositoryImpl(
         tasksRef().add(dto).await()
     }
 
-    override suspend fun updateTask(task: Task) {
-        tasksRef().document(task.id).set(task.mapToTaskDto()).await()
+    override suspend fun updateTask(params: UpdateTaskParams) {
+        tasksRef().document(params.taskId).update(
+            mapOf(
+                "title" to params.title,
+                "description" to params.description,
+                "completed" to params.isCompleted,
+                "updatedAt" to Timestamp(Date(System.currentTimeMillis()))
+            )
+        ).await()
     }
 
     override suspend fun deleteTask(taskId: String) {
