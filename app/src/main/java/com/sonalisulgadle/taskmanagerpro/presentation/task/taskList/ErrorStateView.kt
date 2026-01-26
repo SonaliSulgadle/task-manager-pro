@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.sonalisulgadle.taskmanagerpro.R
 
 @Composable
-fun ErrorState(message: String, onRetry: () -> Unit) {
+fun ErrorStateView(message: String, onRetry: () -> Unit) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center

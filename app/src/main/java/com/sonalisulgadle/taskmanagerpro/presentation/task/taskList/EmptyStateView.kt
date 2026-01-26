@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.sonalisulgadle.taskmanagerpro.R
 
 @Composable
-fun EmptyState(
+fun EmptyStateView(
     onAddTaskClicked: () -> Unit
 ) {
     Box(

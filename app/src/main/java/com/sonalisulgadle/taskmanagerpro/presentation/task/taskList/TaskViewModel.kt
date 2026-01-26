@@ -9,8 +9,10 @@ import com.sonalisulgadle.taskmanagerpro.domain.usecase.task.ObserveTasksUseCase
 import com.sonalisulgadle.taskmanagerpro.domain.usecase.task.UpdateTaskParams
 import com.sonalisulgadle.taskmanagerpro.domain.usecase.task.UpdateTaskUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -26,6 +28,9 @@ class TaskViewModel @Inject constructor(
 ) : ViewModel() {
     private val _state = MutableStateFlow<TaskUiState>(TaskUiState.Loading)
     var state: StateFlow<TaskUiState> = _state
+
+    private val _event = MutableSharedFlow<TaskEvent>()
+    var event = _event.asSharedFlow()
 
     init {
         observeTasks()
@@ -62,9 +67,21 @@ class TaskViewModel @Inject constructor(
         }
     }
 
-    internal fun deleteTask(taskId: String) {
+    internal fun deleteTask(task: Task) {
         viewModelScope.launch {
-            deleteTaskUseCase(taskId)
+            deleteTaskUseCase(task.id)
+            _event.emit(
+                TaskEvent.ShowUndoDelete(task)
+            )
+        }
+    }
+
+    internal fun undoDelete(task: Task) {
+        viewModelScope.launch {
+            addTaskUseCase(
+                title = task.title,
+                description = task.description.orEmpty()
+            )
         }
     }
 

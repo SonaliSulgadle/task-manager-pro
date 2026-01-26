@@ -27,4 +27,7 @@
     <string name="label_no_tasks">No tasks yet</string>
     <string name="action_add_task">Add Task</string>
     <string name="action_retry">Retry</string>
+
+    <string name="label_task_deleted">Task Deleted.</string>
+    <string name="action_undo_delete">UNDO</string>
 </resources>
