@@ -143,7 +143,7 @@ fun SignUpScreen(
             if (state is LoginState.Error) {
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = (state as LoginState.Error).message ?: "",
+                    text = (state as LoginState.Error).message.orEmpty(),
                     color = MaterialTheme.colorScheme.error,
                     textAlign = TextAlign.Center
                 )

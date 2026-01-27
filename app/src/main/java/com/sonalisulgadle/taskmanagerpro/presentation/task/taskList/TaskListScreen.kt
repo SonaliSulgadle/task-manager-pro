@@ -85,10 +85,18 @@ fun TaskListScreen(
 
         when (val state = uiState) {
             TaskUiState.Loading -> LoadingStateView()
-            TaskUiState.Empty -> EmptyStateView({ showDialog = true })
+
             is TaskUiState.Success -> {
                 val tasks = state.tasks
-                LazyColumn(modifier = modifier.padding(24.dp)) {
+                LazyColumn(modifier = modifier.padding(16.dp)) {
+                    item {
+                        FilterBarView(
+                            currentFilter = state.filter,
+                            currentSort = state.sort,
+                            onFilterSelected = viewModel::setFilter,
+                            onSortSelected = viewModel::setSortingMethod
+                        )
+                    }
                     items(tasks) { task ->
                         TMTaskCard(
                             task = task,
@@ -100,6 +108,18 @@ fun TaskListScreen(
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                     }
+                }
+            }
+
+            is TaskUiState.Empty -> {
+                Column(modifier = modifier.padding(16.dp)) {
+                    FilterBarView(
+                        currentFilter = state.filter,
+                        currentSort = state.sort,
+                        onFilterSelected = viewModel::setFilter,
+                        onSortSelected = viewModel::setSortingMethod
+                    )
+                    EmptyStateView({ showDialog = true })
                 }
             }
 
