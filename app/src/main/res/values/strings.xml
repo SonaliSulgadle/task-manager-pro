@@ -30,4 +30,6 @@
 
     <string name="label_task_deleted">Task Deleted.</string>
     <string name="action_undo_delete">UNDO</string>
+
+    <string name="label_sort_by">Sort By: %s</string>
 </resources>

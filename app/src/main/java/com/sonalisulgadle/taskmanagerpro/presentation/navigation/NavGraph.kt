@@ -69,7 +69,7 @@ fun NavGraph(
                         type = NavType.StringType
                     }
                 )) { backStackEntry ->
-                val taskId = backStackEntry.arguments?.getString("taskId") ?: ""
+                val taskId = backStackEntry.arguments?.getString("taskId").orEmpty()
                 EditTaskScreen(taskId = taskId, onBackPressed = {
                     navController.popBackStack()
                 })
