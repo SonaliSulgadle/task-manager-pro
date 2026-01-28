@@ -2,11 +2,14 @@ package com.sonalisulgadle.taskmanagerpro.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.sonalisulgadle.taskmanagerpro.data.preferences.ThemePreferences
 import com.sonalisulgadle.taskmanagerpro.data.repository.AuthRepositoryImpl
 import com.sonalisulgadle.taskmanagerpro.data.repository.TaskRepositoryImpl
 import com.sonalisulgadle.taskmanagerpro.domain.repository.AuthRepository
 import com.sonalisulgadle.taskmanagerpro.domain.repository.TaskRepository
 import com.sonalisulgadle.taskmanagerpro.domain.usecase.login.LoginUseCase
+import com.sonalisulgadle.taskmanagerpro.domain.usecase.preferences.GetThemeUseCase
+import com.sonalisulgadle.taskmanagerpro.domain.usecase.preferences.SetThemeUseCase
 import com.sonalisulgadle.taskmanagerpro.domain.usecase.task.AddTaskUseCase
 import com.sonalisulgadle.taskmanagerpro.domain.usecase.task.DeleteTaskUseCase
 import com.sonalisulgadle.taskmanagerpro.domain.usecase.task.GetTaskByIdUseCase
@@ -61,4 +64,12 @@ object AppModule {
     @Provides
     fun provideGetTaskByIdUseCase(taskRepository: TaskRepository) =
         GetTaskByIdUseCase(taskRepository)
+
+    @Provides
+    fun provideGetThemeUseCase(preferences: ThemePreferences) =
+        GetThemeUseCase(preferences)
+
+    @Provides
+    fun provideSetThemeUseCase(preferences: ThemePreferences) =
+        SetThemeUseCase(preferences)
 }

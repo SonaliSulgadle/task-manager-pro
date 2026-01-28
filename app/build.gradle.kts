@@ -70,6 +70,8 @@ dependencies {
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.firestorage.ktx)
 
+    implementation(libs.androidx.datastore)
+
     implementation(libs.google.play.service)
 
     implementation(libs.androidx.hilt.navigation.compose)
