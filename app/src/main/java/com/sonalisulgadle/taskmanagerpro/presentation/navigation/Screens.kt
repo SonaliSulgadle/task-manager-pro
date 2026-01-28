@@ -10,4 +10,7 @@ sealed class Screens(val route: String) {
             return "edit_task/$taskId"
         }
     }
+
+    object Settings : Screens("settings")
+
 }
