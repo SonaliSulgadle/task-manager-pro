@@ -95,7 +95,8 @@ fun SignUpScreen(
                     Text(
                         stringResource(R.string.password_placeholder),
                         modifier = Modifier.padding(4.dp),
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontFamily = FontFamily.Monospace
                     )
                 },
                 singleLine = true,
@@ -110,7 +111,8 @@ fun SignUpScreen(
                     Text(
                         stringResource(R.string.confirm_password_placeholder),
                         modifier = Modifier.padding(4.dp),
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontFamily = FontFamily.Monospace
                     )
                 },
                 singleLine = true,
@@ -135,7 +137,8 @@ fun SignUpScreen(
                 } else {
                     Text(
                         text = stringResource(R.string.sign_up),
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontFamily = FontFamily.Monospace
                     )
                 }
             }
@@ -145,7 +148,8 @@ fun SignUpScreen(
                 Text(
                     text = (state as LoginState.Error).message.orEmpty(),
                     color = MaterialTheme.colorScheme.error,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    fontFamily = FontFamily.Monospace
                 )
             }
         }

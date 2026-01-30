@@ -18,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sonalisulgadle.taskmanagerpro.R
@@ -50,7 +51,8 @@ fun SettingsScreen(
         ) {
             Text(
                 text = stringResource(R.string.label_theme),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
+                fontFamily = FontFamily.Monospace
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -68,7 +70,10 @@ fun SettingsScreen(
                         onClick = { viewModel.setTheme(it) }
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    Text(text = it.name.lowercase().replaceFirstChar(Char::uppercase))
+                    Text(
+                        text = it.name.lowercase().replaceFirstChar(Char::uppercase),
+                        fontFamily = FontFamily.Monospace
+                    )
                 }
             }
 

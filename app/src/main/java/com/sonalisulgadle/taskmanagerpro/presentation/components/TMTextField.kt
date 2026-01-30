@@ -6,6 +6,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -18,7 +19,13 @@ fun TMOutlinedTextField(
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
         value = value,
-        placeholder = { Text(placeholder, modifier = Modifier.padding(4.dp)) },
+        placeholder = {
+            Text(
+                text = placeholder,
+                modifier = Modifier.padding(4.dp),
+                fontFamily = FontFamily.Monospace
+            )
+        },
         onValueChange = onValueChange,
         singleLine = true,
     )
