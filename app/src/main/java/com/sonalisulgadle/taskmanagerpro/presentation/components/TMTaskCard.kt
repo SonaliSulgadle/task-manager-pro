@@ -1,5 +1,8 @@
 package com.sonalisulgadle.taskmanagerpro.presentation.components
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +19,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -24,6 +28,8 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sonalisulgadle.taskmanagerpro.domain.model.task.Task
+import com.sonalisulgadle.taskmanagerpro.ui.theme.DarkIndigoPrimaryAlpha
+import com.sonalisulgadle.taskmanagerpro.ui.theme.MintSurface
 import com.sonalisulgadle.taskmanagerpro.ui.theme.TaskManagerProTheme
 
 @Composable
@@ -34,17 +40,27 @@ fun TMTaskCard(
     onDelete: () -> Unit,
     onCardClick: (String) -> Unit
 ) {
+    val bgColor by animateColorAsState(
+        targetValue = if (task.completed)
+            DarkIndigoPrimaryAlpha
+        else
+            MintSurface,
+    )
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
+            .animateContentSize()
             .clickable {
                 onCardClick(task.id)
             },
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        colors = CardDefaults.cardColors(
+            containerColor = bgColor
+        ),
     ) {
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
+                .background(bgColor)
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -52,7 +68,7 @@ fun TMTaskCard(
                 checked = task.completed,
                 onCheckedChange = { onToggle() },
                 colors = CheckboxDefaults.colors(
-                    checkedColor = MaterialTheme.colorScheme.primary
+                    checkedColor = MaterialTheme.colorScheme.secondary
                 )
             )
             Column(modifier = Modifier.weight(1f)) {
@@ -62,7 +78,7 @@ fun TMTaskCard(
                     color = MaterialTheme.colorScheme.onSurface,
                     maxLines = 1,
                     style = TextStyle(
-                        fontSize = 18.sp,
+                        fontSize = 20.sp,
                         fontFamily = FontFamily.Monospace,
                     )
                 )
@@ -70,7 +86,7 @@ fun TMTaskCard(
                     Text(
                         modifier = Modifier.padding(horizontal = 16.dp),
                         text = it,
-                        color = MaterialTheme.colorScheme.secondary,
+                        color = MaterialTheme.colorScheme.onSurface,
                         style = TextStyle(
                             fontSize = 16.sp,
                             fontFamily = FontFamily.Monospace,

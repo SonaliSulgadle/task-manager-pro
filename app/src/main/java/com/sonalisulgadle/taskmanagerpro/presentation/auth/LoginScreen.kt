@@ -101,8 +101,9 @@ fun LoginScreen(
                 value = password,
                 placeholder = {
                     Text(
-                        stringResource(R.string.password_placeholder),
-                        modifier = Modifier.padding(4.dp)
+                        text = stringResource(R.string.password_placeholder),
+                        modifier = Modifier.padding(4.dp),
+                        fontFamily = FontFamily.Monospace
                     )
                 },
                 singleLine = true,
@@ -151,7 +152,11 @@ fun LoginScreen(
             }
 
             if (state is LoginState.Error) {
-                Text(text = (state as LoginState.Error).message ?: "Error", color = Color.Red)
+                Text(
+                    text = (state as LoginState.Error).message ?: "Error",
+                    color = Color.Red,
+                    fontFamily = FontFamily.Monospace
+                )
             }
         }
     }

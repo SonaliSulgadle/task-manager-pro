@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import com.sonalisulgadle.taskmanagerpro.R
 
@@ -26,13 +27,17 @@ fun ErrorStateView(message: String, onRetry: () -> Unit) {
         ) {
             Text(
                 text = message,
-                color = MaterialTheme.colorScheme.error
+                color = MaterialTheme.colorScheme.error,
+                fontFamily = FontFamily.Monospace
             )
             Spacer(modifier = Modifier.height(12.dp))
             Button(
                 onClick = onRetry
             ) {
-                Text(text = stringResource(R.string.action_retry))
+                Text(
+                    text = stringResource(R.string.action_retry),
+                    fontFamily = FontFamily.Monospace
+                )
             }
         }
     }

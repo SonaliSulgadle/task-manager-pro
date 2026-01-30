@@ -11,38 +11,41 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 
-private val DarkColorScheme = darkColorScheme(
-    primary = DarkIndigoPrimary,
-    onPrimary = DarkOnPrimary,
+val DarkColorScheme = darkColorScheme(
+    primary = Color(0xFFCBC5EA),
+    onPrimary = Color(0xFF183642),
 
-    secondary = DarkMintSecondary,
-    onSecondary = DarkOnSecondary,
+    secondary = Color(0xFF73628A),
+    onSecondary = Color.White,
 
-    background = DarkBackground,
-    onBackground = DarkOnBackground,
+    background = Color(0xFF183642),
+    onBackground = Color(0xFFEAEAEA),
 
-    surface = DarkSurface,
-    onSurface = DarkOnSurface
+    surface = Color(0xFF313D5A),
+    onSurface = Color(0xFFEAEAEA),
+
+    outline = Color(0xFF73628A)
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = IndigoPrimary,
-    onPrimary = LightOnPrimary,
-    primaryContainer = IndigoPrimaryLight,
+val LightColorScheme = lightColorScheme(
+    primary = Color(0xFF73628A),
+    onPrimary = Color.White,
 
-    secondary = MintSecondary,
-    onSecondary = LightOnSecondary,
-    secondaryContainer = MintSecondaryLight,
+    secondary = Color(0xFFCBC5EA),
+    onSecondary = Color(0xFF313D5A),
 
-    background = LightBackground,
-    onBackground = LightOnBackground,
+    background = Color(0xFFEAEAEA),
+    onBackground = Color(0xFF183642),
 
-    surface = LightSurface,
-    onSurface = LightOnSurface
+    surface = Color.White,
+    onSurface = Color(0xFF313D5A),
+
+    outline = Color(0xFFCBC5EA)
 )
 
 // --- Typography (minimal, readable) ---

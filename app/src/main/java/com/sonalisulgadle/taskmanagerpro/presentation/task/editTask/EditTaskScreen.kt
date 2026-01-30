@@ -17,13 +17,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -67,13 +64,25 @@ fun EditTaskScreen(
             OutlinedTextField(
                 value = state.title,
                 onValueChange = viewModel::onTitleChange,
-                label = { Text(stringResource(R.string.text_title)) },
+                label = {
+                    Text(
+                        stringResource(R.string.text_title),
+                        color = MaterialTheme.colorScheme.primary,
+                        fontFamily = FontFamily.Monospace
+                    )
+                },
                 modifier = Modifier.fillMaxWidth()
             )
             OutlinedTextField(
                 value = state.description,
                 onValueChange = viewModel::onDescriptionChange,
-                label = { Text(text = stringResource(R.string.text_description)) },
+                label = {
+                    Text(
+                        text = stringResource(R.string.text_description),
+                        color = MaterialTheme.colorScheme.primary,
+                        fontFamily = FontFamily.Monospace
+                    )
+                },
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -84,7 +93,11 @@ fun EditTaskScreen(
                     checked = state.isCompleted,
                     onCheckedChange = viewModel::onToggleChange
                 )
-                Text(text = stringResource(R.string.label_completed))
+                Text(
+                    text = stringResource(R.string.label_completed),
+                    color = MaterialTheme.colorScheme.primary,
+                    fontFamily = FontFamily.Monospace
+                )
             }
             Spacer(modifier = Modifier.weight(1f))
 
@@ -101,14 +114,18 @@ fun EditTaskScreen(
                         strokeWidth = 2.dp
                     )
                 } else {
-                    Text(text = stringResource(R.string.action_save))
+                    Text(
+                        text = stringResource(R.string.action_save),
+                        fontFamily = FontFamily.Monospace
+                    )
                 }
             }
 
             state.error?.let {
                 Text(
                     text = it,
-                    color = MaterialTheme.colorScheme.error
+                    color = MaterialTheme.colorScheme.error,
+                    fontFamily = FontFamily.Monospace
                 )
             }
         }
