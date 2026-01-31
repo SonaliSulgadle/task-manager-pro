@@ -35,4 +35,5 @@
 
     <string name="label_theme">Theme</string>
     <string name="action_sign_out">Sign Out</string>
+    <string name="header_settings">Settings</string>
 </resources>

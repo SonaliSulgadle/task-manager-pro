@@ -38,7 +38,7 @@ fun SettingsScreen(
     Scaffold(
         topBar = {
             TMTopBarWithBack(
-                stringResource(R.string.header_edit_task),
+                stringResource(R.string.header_settings),
                 onNavigateBack = onBackPressed
             )
         }

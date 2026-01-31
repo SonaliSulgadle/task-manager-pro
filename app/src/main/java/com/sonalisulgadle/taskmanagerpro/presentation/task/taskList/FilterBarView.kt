@@ -30,7 +30,8 @@ import androidx.compose.ui.unit.dp
 import com.sonalisulgadle.taskmanagerpro.R
 import com.sonalisulgadle.taskmanagerpro.domain.model.task.TaskFilter
 import com.sonalisulgadle.taskmanagerpro.domain.model.task.TaskSort
-import com.sonalisulgadle.taskmanagerpro.ui.theme.DarkIndigoPrimaryAlpha
+import com.sonalisulgadle.taskmanagerpro.ui.theme.IndigoPrimary
+import com.sonalisulgadle.taskmanagerpro.ui.theme.PastelIndigo
 
 @Composable
 fun FilterBarView(
@@ -60,13 +61,13 @@ fun FilterBarView(
                         Text(
                             text = it.name,
                             fontFamily = FontFamily.Monospace,
-                            color = MaterialTheme.colorScheme.primary,
+                            color = IndigoPrimary,
                         )
                     },
                     shape = RoundedCornerShape(16.dp),
                     colors = FilterChipDefaults.filterChipColors(
-                        selectedContainerColor = DarkIndigoPrimaryAlpha,
-                        selectedLabelColor = MaterialTheme.colorScheme.onPrimary
+                        selectedContainerColor = PastelIndigo,
+                        selectedLabelColor = IndigoPrimary
                     )
                 )
             }

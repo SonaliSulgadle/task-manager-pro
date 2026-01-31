@@ -28,8 +28,9 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sonalisulgadle.taskmanagerpro.domain.model.task.Task
-import com.sonalisulgadle.taskmanagerpro.ui.theme.DarkIndigoPrimaryAlpha
-import com.sonalisulgadle.taskmanagerpro.ui.theme.MintSurface
+import com.sonalisulgadle.taskmanagerpro.ui.theme.DarkOnPrimary
+import com.sonalisulgadle.taskmanagerpro.ui.theme.PastelIndigo
+import com.sonalisulgadle.taskmanagerpro.ui.theme.PastelMintStrong
 import com.sonalisulgadle.taskmanagerpro.ui.theme.TaskManagerProTheme
 
 @Composable
@@ -42,9 +43,9 @@ fun TMTaskCard(
 ) {
     val bgColor by animateColorAsState(
         targetValue = if (task.completed)
-            DarkIndigoPrimaryAlpha
+            PastelMintStrong
         else
-            MintSurface,
+            PastelIndigo
     )
     Card(
         modifier = modifier
@@ -75,7 +76,7 @@ fun TMTaskCard(
                 Text(
                     modifier = Modifier.padding(16.dp),
                     text = task.title,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = DarkOnPrimary,
                     maxLines = 1,
                     style = TextStyle(
                         fontSize = 20.sp,
@@ -86,7 +87,7 @@ fun TMTaskCard(
                     Text(
                         modifier = Modifier.padding(horizontal = 16.dp),
                         text = it,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        color = DarkOnPrimary,
                         style = TextStyle(
                             fontSize = 16.sp,
                             fontFamily = FontFamily.Monospace,

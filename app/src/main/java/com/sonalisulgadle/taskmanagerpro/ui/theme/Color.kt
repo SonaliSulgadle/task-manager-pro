@@ -29,7 +29,8 @@ val DarkOnSecondary = Color(0xFF022C22)
 val DarkOnBackground = Color(0xFFE5E7EB)
 val DarkOnSurface = Color(0xFFE2E8F0)
 
-val DarkIndigoPrimaryAlpha = Color(0xFF818CF8).copy(alpha = 0.5f)
+val PastelIndigo = Color(0xFFD6DBFF)
 
 val MintSurface = Color(0xFF7CF0BD).copy(alpha = 0.5f)
 val MintAccent = Color(0xFF7CF0BD)
+val PastelMintStrong = Color(0xFFD1F5E3)
